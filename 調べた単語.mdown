@@ -1,6 +1,6 @@
 # <i class="fa fa-cubes"></i> 用語集aa
 
-[TOC]
+
 
 ## a
 * **API**
