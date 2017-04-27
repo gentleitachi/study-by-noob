@@ -48,52 +48,91 @@ GoogleのAndroidもディストリビューションの一つ
 * 速い
 * 難しい
 
-## <i class="fa fa-cube"></i> 不肖のnoobが使ったコマンド
-### a
-### b
-### c
-#### cat
+# <i class="fa fa-cube"></i> 不肖のnoobが使ったコマンド
+## a
+## b
+## c
+#### <i class="fa fa-arrow-circle-right"></i> cat
 * ファイルの内容を表示する
 * 複数のファイルを連結して出力することもできる
 
-#### cd
+#### <i class="fa fa-arrow-circle-right"></i> cd
 * カレント・ディレクトリを変更する
 * 移動先を指定しないとユーザーのホームディレクトリに移動する
 
 ```
-「file1」を行番号をつけて表示します。
+「file1」を行番号をつけて表示
 $ cat -n file1
-「file1」と「file2」を連結して、「file3」に出力します。
+「file1」と「file2」を連結して「file3」に出力
 $ cat file1 file2 > file3
 ```
 
-### d
-### e
-### f
-### g
-### h
-### i
-### j
-### k
-### l
-#### ls
+#### <i class="fa fa-arrow-circle-right"></i> cp
+* ファイルのコピー
+
+```bash
+#ファイル「file1」を属性を保持して「file1.0114」という名前でコピー
+$ cp -p file1 file1.0114
+
+#２つのファイルを「/tmp」にコピー
+#確認なしで上書き
+$ cp -f file1 file2 /tmp/
+
+```
+
+## d
+## e
+## f
+## g
+## h
+## i
+## j
+## k
+## l
+#### <i class="fa fa-arrow-circle-right"></i> ls
 * ファイルやディレクトリの情報を表示する
 
-### m
-### n
-### o
-### p
-### q
-### r
-### s
-#### su
+## m
+#### <i class="fa fa-arrow-circle-right"></i> mkdir
+* 新しいディレクトリを作成する
+* ディレクトリにパスを指定していればその位置に、パスがなければカレント・ディレクトリに作成されます。
+
+```bash
+# ディレクトリ「dir1」をパーミッション「777」で作成
+$ mkdir -m 777 dir1
+
+# ディレクトリ「usr1」を作成
+$ mkdir -p work/usr1
+# 存在しない親ディレクトリ「work」も同時に作成します。
+```
+
+## n
+## o
+## p
+## q
+## r
+## s
+#### <i class="fa fa-arrow-circle-right"></i> su
 * 他のユーザーアカウントに切り替える
 * ユーザー名を指定しない場合は「root」ユーザー(管理者権限)を指定したものとみなす
 
-### t
-### u
-### v
-### x
-### x
-### y
-### z
+## t
+## u
+## v
+#### <i class="fa fa-arrow-circle-right"></i> vi
+* テキストファイルの内容を編集する
+* 指定されたファイルが存在しない場合はファイルを新規作成する
+* コマンドモードと編集モードの２種類のモードが存在する
+	* 起動直後はコマンドモードになる
+	* [コマンドモード] 以下に示す各種コマンドを操作して、様々な操作を行います。
+	* [編集モード] 実際に文字の入力を行います。
+
+```bash
+#「file1」の内容を編集
+$ vi file1
+```
+
+## w
+## x
+## y
+## z
