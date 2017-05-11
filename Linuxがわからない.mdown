@@ -53,6 +53,23 @@ GoogleのAndroidもディストリビューションの一つ
 ## a
 ## b
 ## c
+#### <i class="fa fa-arrow-circle-right"></i> chmod
+* ファイルやディレクトリのパーミッションを変更
+* パーミッションは「記号」または「数値」で指定
+* 変更を行えるのは、そのファイルの所有者または管理者だけ
+
+```bash
+#拡張子「.sh」のファイルすべてに実行権限を付加
+$ chmod +x *.sh
+
+#「file1」のパーミッションを「764」に変更
+$ chmod 764 file1
+$ ls -l file1
+
+#結果
+-rwxrw-r--    1  usr01   grp01   Dec    2 04:36 file1
+```
+
 #### <i class="fa fa-arrow-circle-right"></i> cat
 * ファイルの内容を表示する
 * 複数のファイルを連結して出力することもできる
@@ -62,9 +79,9 @@ GoogleのAndroidもディストリビューションの一つ
 * 移動先を指定しないとユーザーのホームディレクトリに移動する
 
 ```bash
-「file1」を行番号をつけて表示
+#「file1」を行番号をつけて表示
 $ cat -n file1
-「file1」と「file2」を連結して「file3」に出力
+#「file1」と「file2」を連結して「file3」に出力
 $ cat file1 file2 > file3
 ```
 
@@ -93,7 +110,33 @@ $ find /wrk/* -type d -mtime '+10' -ok rm -r {}\
 ```
 
 ## g
+#### <i class="fa fa-arrow-circle-right"></i> grep
+* 指定した検索パターンにマッチする文字列を表示
+
+```bash
+#「file1」より「str」文字列を検索し、行番号をつけて表示
+$ grep -n 'str' file1
+
+#「file1」より「abc」で始まる行を検索
+$ grep '^abc' file1
+
+#「ps」コマンドの表示結果から、「httpd」文字列を検索
+$ ps aux | grep httpd
+```
+
 ## h
+#### <i class="fa fa-arrow-circle-right"></i> head
+* 指定したファイルの先頭から指定した行数（バイト数）を表示
+* デフォルトでは10行表示
+
+```bash
+#「file1」の先頭から10行を表示
+$ head file1
+
+#「file1」の先頭から5行を表示
+$ head -n 5 file1
+```
+
 ## i
 ## j
 ## k
@@ -118,8 +161,32 @@ $ mkdir -p work/usr1
 ## n
 ## o
 ## p
+#### <i class="fa fa-arrow-circle-right"></i> pwd
+* カレント・ディレクトリを絶対パスで表示
+
+```bash
+#カレント・ディレクトリを表示
+$ pwd
+
+#結果
+/home/usr01
+```
+
 ## q
 ## r
+#### <i class="fa fa-arrow-circle-right"></i> rm
+* 指定されたファイルを削除
+* オプションを付けることでディレクトリを中身ごと削除もイケる
+* デフォルトではディレクトリの削除はできませんといわれる
+
+```bash
+#「file1」ではじまるファイルをすべて削除
+$ rm file1*
+
+#「dir1」ディレクトリをファイルごと削除
+$ rm -r dir1
+```
+
 ## s
 #### <i class="fa fa-arrow-circle-right"></i> su
 * 他のユーザーアカウントに切り替える
@@ -142,12 +209,49 @@ $ vi file1
 ```
 
 ## w
+#### <i class="fa fa-arrow-circle-right"></i> wc
+
+```bash
+#「file1」の文字数のみ表示
+$ wc -c file1
+#結果
+        46    file1
+#「file2」の大きさを調べる
+$ wc file2
+#結果
+        2    2    36      #file2  行数,単語数,文字数,ファイル名の順で表示
+```
+
 ## x
+#### <i class="fa fa-circle-right"></i> xargs
+* 左側の結果を入力として受け渡すコマンド
+
+普通にやるとこれ
+```bash
+#txt検索
+$ find . -name "*.txt"
+#結果
+foo.txt
+sub/bar.txt
+
+#削除
+$ rm foo.txt sub/bar.txt
+```
+
+xargs使うとこうできる
+```bash
+#引数 | xargs コマンド
+$ find . -name "*.txt" | xargs rm
+```
+
 ## y
 ## z
 ## other
+#### <i class="fa fa-arrow-circle-right"></i> >
+* コマンドの実行結果をファイルに上書き保存
+
 #### <i class="fa fa-arrow-circle-right"></i> >>
-* 出力をファイルへ追記する
+* コマンドの実行結果をファイルに追記
 
 ```bash
 #name_fileから文字列"hoge"を探し，resultファイルに追加書き込みをする
