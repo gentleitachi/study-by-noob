@@ -1,3 +1,46 @@
+<!-- 読み込み -->
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<style>
+	.page-top
+	{
+		/*display: none ;*/
+		margin: 0 ;
+		padding: 0 ;
+	}
+	.page-top p
+	{
+		margin: 0 ;
+		padding: 0 ;
+		position: fixed ;
+		right: 16px ;
+		bottom: 16px ;
+	}
+	.move-page-top
+	{
+		display: block ;
+		background: #d01254;
+		width: 50px ;
+		height: 50px ;
+		color: #fff ;
+		line-height: 50px ;
+		text-decoration: none ;
+		text-align: center ;
+		-webkit-transition:all 0.03s ;
+		-moz-transition:all 0.03s ;
+		transition:all 0.03s ;
+	}
+	.move-page-top:hover
+	{
+		opacity: 0.5 ;
+	}
+</style>
+<div id="page-top" class="page-top">
+	<p><a id="move-page-top" class="move-page-top"><i class="fa fa-caret-up"></i></a></p>
+</div>
+
+<!-- 読み込み ここまで -->
+
 [TOC]
 
 # <i class="fa fa-cubes"></i> Linuxがわからない
@@ -60,7 +103,7 @@ GoogleのAndroidもディストリビューションの一つ
 * カレント・ディレクトリを変更する
 * 移動先を指定しないとユーザーのホームディレクトリに移動する
 
-```
+```bash
 「file1」を行番号をつけて表示
 $ cat -n file1
 「file1」と「file2」を連結して「file3」に出力
@@ -83,6 +126,13 @@ $ cp -f file1 file2 /tmp/
 ## d
 ## e
 ## f
+#### <i class="fa fa-arrow-circle-right"></i> find
+* 指定されたディレクトリ以下の階層から、与えられた条件に適合するファイルを検索
+
+```bash
+#「/wrk」以下から、ディレクトリかつ、最終更新時刻が10日以上前のファイルを検索し、確認の上、ディレクトリごと削除します。
+$ find /wrk/* -type d -mtime '+10' -ok rm -r {}\
+```
 
 ## g
 ## h
@@ -137,3 +187,104 @@ $ vi file1
 ## x
 ## y
 ## z
+## other
+#### <i class="fa fa-arrow-circle-right"></i> >>
+* 出力をファイルへ追記する
+
+```bash
+#name_fileから文字列"hoge"を探し，resultファイルに追加書き込みをする
+$ grep "hoge2" name_file >> result
+```
+
+<!-- script -->
+
+<script src="https://code.jquery.com/jquery-3.2.1.js"integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="crossorigin="anonymous"></script>
+<script type="text/javascript">
+	$("#setNum").click(function(){
+		var date     = $("#date").val();
+		var iraiNo   = $("#iraiNo").val();
+		var couponNo = $("#couponNo").val();
+		
+		$('.codehilite').each( function() {
+      var txt= $(this).html();
+
+      // yymmddを置換
+      txt = $(this).html(txt.replace(new RegExp('yymmdd',"g"), date)).html();
+
+      // 管理番号を置換
+      txt = $(this).html(txt.replace(new RegExp('●●●●',"g"), iraiNo)).html();
+      
+      // クーポン番号を置換
+      txt = $(this).html(txt.replace(new RegExp('xxxxxxx', "g"), couponNo)).html();
+    });
+		
+		// formを置換済みテキストに差し替え
+		$(".form").html("<table><tr><th>本日の日付（yymmdd）</th><th>管理番号下4桁</th><th>クーポン番号（7桁）</th></tr><tr><td>" + date + "</td><td>" + iraiNo + "</td><td>" + couponNo + "</td></tr></table>");
+	});
+</script>
+<script>
+	// グローバル変数
+	var syncerTimeout = null ;
+
+	// 一連の処理
+	$( function()
+	{
+		// スクロールイベントの設定
+		$( window ).scroll( function()
+		{
+			// 1秒ごとに処理
+			if( syncerTimeout == null )
+			{
+				// セットタイムアウトを設定
+				syncerTimeout = setTimeout( function(){
+
+					// 対象のエレメント
+					var element = $( '#page-top' ) ;
+
+					// 現在、表示されているか？
+					var visible = element.is( ':visible' ) ;
+
+					// 最上部から現在位置までの距離を取得して、変数[now]に格納
+					var now = $( window ).scrollTop() ;
+
+					// 最下部から現在位置までの距離を計算して、変数[under]に格納
+					var under = $( 'body' ).height() - ( now + $(window).height() ) ;
+
+					// 最上部から現在位置までの距離(now)が1500以上かつ
+					// 最下部から現在位置までの距離(under)が200px以上かつ…
+					// if( now > 1500 && 200 < under )
+					// {
+					// 	// 非表示状態だったら
+					// 	if( !visible )
+					// 	{
+					// 		// [#page-top]をゆっくりフェードインする
+					// 		element.fadeIn( 'slow' ) ;
+					// 	}
+					// }
+
+					// // 1500px以下かつ
+					// // 表示状態だったら
+					// else if( visible )
+					// {
+					// 	// [#page-top]をゆっくりフェードアウトする
+					// 	element.fadeOut( 'slow' ) ;
+					// }
+
+					// フラグを削除
+					syncerTimeout = null ;
+				} , 1000 ) ;
+			}
+		} ) ;
+
+		// クリックイベントを設定する
+		$( '#move-page-top' ).click(
+			function()
+			{
+				// スムーズにスクロールする
+				$( 'html,body' ).animate( {scrollTop:0} , 'slow' ) ;
+			}
+		) ;
+	} ) ;
+</script>
+
+<!-- script -->
